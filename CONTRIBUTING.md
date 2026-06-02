@@ -14,9 +14,9 @@ Escolha o método adequado para o seu sistema operacional:
   * **Pelo site oficial (Recomendado)**: Baixe e instale a versão mais recente em [git-scm.com/download/win](https://git-scm.com/download/win). Pode avançar com todas as opções padrão no instalador.
   * **Pelo Terminal (PowerShell)**: Abra o terminal como Administrador e execute:
 
-        ```powershell
-        winget install --id Git.Git -e --source winget
-        ```
+    ```powershell
+    winget install --id Git.Git -e --source winget
+    ```
 
 * **macOS**:
   * Abra o Terminal e digite `git --version`. Se não estiver instalado, o sistema oferecerá para instalar as ferramentas de linha de comando do Xcode.
@@ -24,9 +24,9 @@ Escolha o método adequado para o seu sistema operacional:
 * **Linux (Ubuntu/Debian)**:
   * Abra o terminal e execute:
 
-        ```bash
-        sudo apt update && sudo apt install git -y
-        ```
+    ```bash
+    sudo apt update && sudo apt install git -y
+    ```
 
 Para testar se a instalação funcionou, abra um novo terminal e rode:
 
