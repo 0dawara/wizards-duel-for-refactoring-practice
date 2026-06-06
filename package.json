@@ -4,6 +4,7 @@
   "description": "Card game Harry Potter com draft e batalha por feitiços",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint . --fix",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
@@ -12,6 +13,21 @@
     "node-fetch": "^2.7.0"
   },
   "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.32.0",
     "nodemon": "^3.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0dawara/wizards-duel-for-refactoring-practice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/0dawara/wizards-duel-for-refactoring-practice/issues"
+  },
+  "homepage": "https://github.com/0dawara/wizards-duel-for-refactoring-practice#readme"
 }
