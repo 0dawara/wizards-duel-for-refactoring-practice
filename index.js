@@ -8,7 +8,8 @@ app.use(express.json());
 // pega pack de cartas aleatorias
 app.get('/api/pack', async (req, res) => {
   try {
-    const pagee = Math.floor(Math.random() * 8) + 1;
+    const eight = 8;
+    const pagee = Math.floor(Math.random() * eight) + 1;
     const chars = await fetch(`https://api.potterdb.com/v1/characters?page[size]=100&page[number]=${pagee}`);
     const read = await chars.json();
 
@@ -18,30 +19,51 @@ app.get('/api/pack', async (req, res) => {
       const character = player.attributes;
       if (!character.name || character.name == '' || !character.image) continue;
 
-      let power1 = 50;
-      if (character.house == 'Gryffindor') power1 = 90;
-      if (character.house == 'Slytherin') power1 = 85;
-      if (character.house == 'Hufflepuff') power1 = 75;
-      if (character.house == 'Ravenclaw') power1 = 80;
+      const basic = 50;
 
-      let magic1 = 50;
-      if (character.species == 'human') magic1 = 70;
-      if (character.species == 'half-giant') magic1 = 88;
-      if (character.species == 'giant') magic1 = 95;
-      if (character.species == 'house elf') magic1 = 82;
-      if (character.species == 'ghost') magic1 = 60;
-      if (character.species == 'werewolf') magic1 = 91;
-      if (character.species == 'vampire') magic1 = 87;
-      if (character.species == 'centaur') magic1 = 78;
+      let power1 = basic;
+      const gryff = 90;
+      const slythe = 85;
+      const huffle = 75;
+      const raven = 80;
+      if (character.house == 'Gryffindor') power1 = gryff;
+      if (character.house == 'Slytherin') power1 = slythe;
+      if (character.house == 'Hufflepuff') power1 = huffle;
+      if (character.house == 'Ravenclaw') power1 = raven;
 
-      let defense1 = 50;
-      if (character.ancestry == 'pure-blood') defense1 = 90;
-      if (character.ancestry == 'half-blood') defense1 = 75;
-      if (character.ancestry == 'muggle-born') defense1 = 70;
-      if (character.ancestry == 'muggle') defense1 = 40;
-      if (character.ancestry == 'squib') defense1 = 35;
+      let magic1 = basic;
+      const hum = 70;
+      const halfg = 88;
+      const gia = 95;
+      const hoelf = 82;
+      const gho = 60;
+      const werew = 91;
+      const vamp = 87;
+      const centa = 78;
+      if (character.species == 'human') magic1 = hum;
+      if (character.species == 'half-giant') magic1 = halfg;
+      if (character.species == 'giant') magic1 = gia;
+      if (character.species == 'house elf') magic1 = hoelf;
+      if (character.species == 'ghost') magic1 = gho;
+      if (character.species == 'werewolf') magic1 = werew;
+      if (character.species == 'vampire') magic1 = vamp;
+      if (character.species == 'centaur') magic1 = centa;
 
-      const hp = defense1 + Math.floor(Math.random() * 20) + 80;
+      let defense1 = basic;
+      const pureb = 90;
+      const halfb = 75;
+      const muggleb = 70;
+      const mug = 40;
+      const squi = 35;
+      if (character.ancestry == 'pure-blood') defense1 = pureb;
+      if (character.ancestry == 'half-blood') defense1 = halfb;
+      if (character.ancestry == 'muggle-born') defense1 = muggleb;
+      if (character.ancestry == 'muggle') defense1 = mug;
+      if (character.ancestry == 'squib') defense1 = squi;
+
+      const twenty = 20;
+      const current = 80;
+      const hp = defense1 + Math.floor(Math.random() * twenty) + current;
 
       const object = {};
       object.id = player.id;
@@ -66,10 +88,12 @@ app.get('/api/pack', async (req, res) => {
     }
 
     // retorna 4 cartas
-    res.json({ cards: temporary.slice(0, 4) });
+    const totalcards = 4;
+    res.json({ cards: temporary.slice(0, totalcards) });
   } catch (card) {
     console.log(card);
-    res.status(500).json({ error: 'erro ao buscar personagens' });
+    const errornum = 500;
+    res.status(errornum).json({ error: 'erro ao buscar personagens' });
   }
 });
 
@@ -85,15 +109,25 @@ app.get('/api/spells', async (req, res) => {
       const character2 = player2.attributes;
       if (!character2.name || character2.name == '') continue;
 
-      let damage1 = 30;
-      if (character2.category == 'Charm') damage1 = 45;
-      if (character2.category == 'Curse') damage1 = 90;
-      if (character2.category == 'Hex') damage1 = 65;
-      if (character2.category == 'Jinx') damage1 = 55;
-      if (character2.category == 'Spell') damage1 = 50;
-      if (character2.category == 'Transfiguration') damage1 = 40;
-      if (character2.category == 'Counter-spell') damage1 = 35;
-      if (character2.category == 'Healing spell') damage1 = -40;
+      const dmg = 30;
+
+      let damage1 = dmg;
+      const chrm = 45;
+      const crse = 90;
+      const hx = 65;
+      const jnx = 55;
+      const spe = 50;
+      const transfi = 40;
+      const counterspe = 35;
+      const healingspe = -40;
+      if (character2.category == 'Charm') damage1 = chrm;
+      if (character2.category == 'Curse') damage1 = crse;
+      if (character2.category == 'Hex') damage1 = hx;
+      if (character2.category == 'Jinx') damage1 = jnx;
+      if (character2.category == 'Spell') damage1 = spe;
+      if (character2.category == 'Transfiguration') damage1 = transfi;
+      if (character2.category == 'Counter-spell') damage1 = counterspe;
+      if (character2.category == 'Healing spell') damage1 = healingspe;
 
       const object2 = {};
       object2.id = player2.id;
@@ -113,17 +147,20 @@ app.get('/api/spells', async (req, res) => {
       temporary2[flor2] = reslt2;
     }
 
-    res.json({ spells: temporary2.slice(0, 20) });
+    const spetotal = 20;
+    res.json({ spells: temporary2.slice(0, spetotal) });
   } catch (card) {
     console.log(card);
-    res.status(500).json({ error: 'erro ao buscar feiticos' });
+    const errornum2 = 500;
+    res.status(errornum2).json({ error: 'erro ao buscar feiticos' });
   }
 });
 
 // monta deck cpu com personagens aleatorios
 app.post('/api/cpu-deck', async (req, res) => {
   try {
-    const pagee2 = Math.floor(Math.random() * 8) + 1;
+    const eight2 = 8;
+    const pagee2 = Math.floor(Math.random() * eight2) + 1;
     const chars2 = await fetch(`https://api.potterdb.com/v1/characters?page[size]=100&page[number]=${pagee2}`);
     const read3 = await chars2.json();
 
@@ -133,30 +170,51 @@ app.post('/api/cpu-deck', async (req, res) => {
       const character3 = player3.attributes;
       if (!character3.name || character3.name == '' || !character3.image) continue;
 
-      let power2 = 50;
-      if (character3.house == 'Gryffindor') power2 = 90;
-      if (character3.house == 'Slytherin') power2 = 85;
-      if (character3.house == 'Hufflepuff') power2 = 75;
-      if (character3.house == 'Ravenclaw') power2 = 80;
+      const basic2 = 50;
 
-      let magic2 = 50;
-      if (character3.species == 'human') magic2 = 70;
-      if (character3.species == 'half-giant') magic2 = 88;
-      if (character3.species == 'giant') magic2 = 95;
-      if (character3.species == 'house elf') magic2 = 82;
-      if (character3.species == 'ghost') magic2 = 60;
-      if (character3.species == 'werewolf') magic2 = 91;
-      if (character3.species == 'vampire') magic2 = 87;
-      if (character3.species == 'centaur') magic2 = 78;
+      let power2 = basic2;
+      const gryff2 = 90;
+      const slythe2 = 85;
+      const huffle2 = 75;
+      const raven2 = 80;
+      if (character3.house == 'Gryffindor') power2 = gryff2;
+      if (character3.house == 'Slytherin') power2 = slythe2;
+      if (character3.house == 'Hufflepuff') power2 = huffle2;
+      if (character3.house == 'Ravenclaw') power2 = raven2;
 
-      let defense2 = 50;
-      if (character3.ancestry == 'pure-blood') defense2 = 90;
-      if (character3.ancestry == 'half-blood') defense2 = 75;
-      if (character3.ancestry == 'muggle-born') defense2 = 70;
-      if (character3.ancestry == 'muggle') defense2 = 40;
-      if (character3.ancestry == 'squib') defense2 = 35;
+      let magic2 = basic2;
+      const hum2 = 70;
+      const halfg2 = 88;
+      const gia2 = 95;
+      const hoelf2 = 82;
+      const gho2 = 60;
+      const werew2 = 91;
+      const vamp2 = 87;
+      const centa2 = 78;
+      if (character3.species == 'human') magic2 = hum2;
+      if (character3.species == 'half-giant') magic2 = halfg2;
+      if (character3.species == 'giant') magic2 = gia2;
+      if (character3.species == 'house elf') magic2 = hoelf2;
+      if (character3.species == 'ghost') magic2 = werew2;
+      if (character3.species == 'werewolf') magic2 = werew2;
+      if (character3.species == 'vampire') magic2 = vamp2;
+      if (character3.species == 'centaur') magic2 = centa2;
 
-      const hp = defense2 + Math.floor(Math.random() * 20) + 80;
+      let defense2 = basic2;
+      const pureb2 = 90;
+      const halfb2 = 75;
+      const muggleb2 = 70;
+      const mug2 = 40;
+      const squi2 = 35;
+      if (character3.ancestry == 'pure-blood') defense2 = pureb2;
+      if (character3.ancestry == 'half-blood') defense2 = halfb2;
+      if (character3.ancestry == 'muggle-born') defense2 = muggleb2;
+      if (character3.ancestry == 'muggle') defense2 = mug2;
+      if (character3.ancestry == 'squib') defense2 = squi2;
+
+      const twenty2 = 20;
+      const current2 = 80;
+      const hp = defense2 + Math.floor(Math.random() * twenty2) + current2;
 
       const object3 = {};
       object3.id = player3.id;
@@ -180,13 +238,16 @@ app.post('/api/cpu-deck', async (req, res) => {
       temporary3[flor3] = reslt3;
     }
 
-    res.json({ deck: temporary3.slice(0, 2) });
+    const decktotal = 2;
+    res.json({ deck: temporary3.slice(0, decktotal) });
   } catch (card) {
     console.log(card);
-    res.status(500).json({ error: 'erro ao montar deck cpu' });
+    const errornum3 = 500;
+    res.status(errornum3).json({ error: 'erro ao montar deck cpu' });
   }
 });
 
-app.listen(3000, () => {
+const portaname = 3000;
+app.listen(portaname, () => {
   console.log('rodando na porta 3000');
 });
