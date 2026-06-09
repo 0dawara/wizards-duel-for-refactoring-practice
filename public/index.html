@@ -600,7 +600,16 @@ var state = {
 }
 
 // ── UTILS ──────────────────────────────────────────────
-function getHouseColor(houseName) {
+function shuffleArray(array) {
+      var arr = array.slice();
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
+      }
+      return arr;
+    }
+
+    function getHouseColor(houseName) {
   if (houseName == 'Gryffindor') return '#6b1010'
   if (houseName == 'Slytherin')  return '#0a3018'
   if (houseName == 'Hufflepuff') return '#3a2800'
