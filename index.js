@@ -1,4 +1,5 @@
 const express = require('express');
+const CONSTANTS = require('./constants');
 const fetch = require('node-fetch');
 
 const app = express();
@@ -92,8 +93,8 @@ function formatSpell(spell) {
 
 app.get('/api/pack', async (req, res) => {
   try {
-    const pageNumber = Math.floor(Math.random() * 8) + 1;
-    const apiResponse = await fetch('https://api.potterdb.com/v1/characters?page[size]=100&page[number]=' + pageNumber);
+    const pageNumber = Math.floor(Math.random() * CONSTANTS.API_MAX_PAGE) + 1;
+    const apiResponse = await fetch('https://api.potterdb.com/v1/characters?page[size]=${CONSTANTS.API_PAGE_SIZE}&page[number]=' + pageNumber);
     const jsonData = await apiResponse.json();
 
     let itemList = jsonData.data.map(formatCharacter).filter(char => char !== null);
@@ -108,7 +109,7 @@ app.get('/api/pack', async (req, res) => {
 
 app.get('/api/spells', async (req, res) => {
   try {
-    const apiResponse = await fetch('https://api.potterdb.com/v1/spells?page[size]=100');
+    const apiResponse = await fetch('https://api.potterdb.com/v1/spells?page[size]=${CONSTANTS.API_PAGE_SIZE}');
     const jsonData = await apiResponse.json();
 
     let itemList = jsonData.data.map(formatSpell).filter(spell => spell !== null);
@@ -123,8 +124,8 @@ app.get('/api/spells', async (req, res) => {
 
 app.post('/api/cpu-deck', async (req, res) => {
   try {
-    const pageNumber = Math.floor(Math.random() * 8) + 1;
-    const apiResponse = await fetch('https://api.potterdb.com/v1/characters?page[size]=100&page[number]=' + pageNumber);
+    const pageNumber = Math.floor(Math.random() * CONSTANTS.API_MAX_PAGE) + 1;
+    const apiResponse = await fetch('https://api.potterdb.com/v1/characters?page[size]=${CONSTANTS.API_PAGE_SIZE}&page[number]=' + pageNumber);
     const jsonData = await apiResponse.json();
 
     let itemList = jsonData.data.map(formatCharacter).filter(char => char !== null);
