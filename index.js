@@ -1,6 +1,6 @@
 const express = require('express');
-const CONSTANTS = require('./constants');
 const fetch = require('node-fetch');
+const CONSTANTS = require('./constants');
 
 const app = express();
 app.use(express.static('public'));
@@ -12,15 +12,17 @@ app.use(express.json());
 
 function shuffleArray(array) {
   const arr = [...array];
-  for (let currentIndex = arr.length - 1; currentIndex > 0; currentIndex--) {
+  for (let currentIndex = arr.length - 1; currentIndex > 0; currentIndex -= 1) {
     const randomIndex = Math.floor(Math.random() * (currentIndex + 1));
-    const temporaryValue = arr[currentIndex]; arr[currentIndex] = arr[randomIndex]; arr[randomIndex] = temporaryValue;
+    const temporaryValue = arr[currentIndex];
+    arr[currentIndex] = arr[randomIndex];
+    arr[randomIndex] = temporaryValue;
   }
   return arr;
 }
 
 function formatCharacter(character) {
-  const attributes = character.attributes;
+  const { attributes } = character;
   if (!attributes.name || attributes.name === '' || !attributes.image) return null;
 
   let power = 50;
@@ -46,7 +48,7 @@ function formatCharacter(character) {
   if (attributes.ancestry === 'muggle') defense = 40;
   if (attributes.ancestry === 'squib') defense = 35;
 
-  let hp = defense + Math.floor(Math.random() * 20) + 80;
+  const hp = defense + Math.floor(Math.random() * 20) + 80;
 
   return {
     id: character.id,
@@ -55,16 +57,16 @@ function formatCharacter(character) {
     species: attributes.species || 'Unknown',
     ancestry: attributes.ancestry || 'Unknown',
     image: attributes.image,
-    power: power,
-    magic: magic,
-    defense: defense,
-    hp: hp,
-    maxHp: hp
+    power,
+    magic,
+    defense,
+    hp,
+    maxHp: hp,
   };
 }
 
 function formatSpell(spell) {
-  const attributes = spell.attributes;
+  const { attributes } = spell;
   if (!attributes.name || attributes.name === '') return null;
 
   let spellDamage = 30;
@@ -83,7 +85,7 @@ function formatSpell(spell) {
     effect: attributes.effect || 'Efeito desconhecido',
     category: attributes.category || 'Spell',
     light: attributes.light || 'Unknown',
-    damage: spellDamage
+    damage: spellDamage,
   };
 }
 
@@ -94,30 +96,30 @@ function formatSpell(spell) {
 app.get('/api/pack', async (req, res) => {
   try {
     const pageNumber = Math.floor(Math.random() * CONSTANTS.API_MAX_PAGE) + 1;
-    const apiResponse = await fetch('https://api.potterdb.com/v1/characters?page[size]=${CONSTANTS.API_PAGE_SIZE}&page[number]=' + pageNumber);
+    const apiResponse = await fetch(`https://api.potterdb.com/v1/characters?page[size]=\${CONSTANTS.API_PAGE_SIZE}&page[number]=${pageNumber}`);
     const jsonData = await apiResponse.json();
 
-    let itemList = jsonData.data.map(formatCharacter).filter(char => char !== null);
+    let itemList = jsonData.data.map(formatCharacter).filter((char) => char !== null);
     itemList = shuffleArray(itemList);
 
     res.json({ cards: itemList.slice(0, 4) });
-  } catch(e) {
-    console.log(e);
+  } catch (e) {
+    console.error(e);
     res.status(500).json({ error: 'erro ao buscar personagens' });
   }
 });
 
 app.get('/api/spells', async (req, res) => {
   try {
-    const apiResponse = await fetch('https://api.potterdb.com/v1/spells?page[size]=${CONSTANTS.API_PAGE_SIZE}');
+    const apiResponse = await fetch(`https://api.potterdb.com/v1/spells?page[size]=${CONSTANTS.API_PAGE_SIZE}`);
     const jsonData = await apiResponse.json();
 
-    let itemList = jsonData.data.map(formatSpell).filter(spell => spell !== null);
+    let itemList = jsonData.data.map(formatSpell).filter((spell) => spell !== null);
     itemList = shuffleArray(itemList);
 
     res.json({ spells: itemList.slice(0, 20) });
-  } catch(e) {
-    console.log(e);
+  } catch (e) {
+    console.error(e);
     res.status(500).json({ error: 'erro ao buscar feiticos' });
   }
 });
@@ -125,19 +127,19 @@ app.get('/api/spells', async (req, res) => {
 app.post('/api/cpu-deck', async (req, res) => {
   try {
     const pageNumber = Math.floor(Math.random() * CONSTANTS.API_MAX_PAGE) + 1;
-    const apiResponse = await fetch('https://api.potterdb.com/v1/characters?page[size]=${CONSTANTS.API_PAGE_SIZE}&page[number]=' + pageNumber);
+    const apiResponse = await fetch(`https://api.potterdb.com/v1/characters?page[size]=\${CONSTANTS.API_PAGE_SIZE}&page[number]=${pageNumber}`);
     const jsonData = await apiResponse.json();
 
-    let itemList = jsonData.data.map(formatCharacter).filter(char => char !== null);
+    let itemList = jsonData.data.map(formatCharacter).filter((char) => char !== null);
     itemList = shuffleArray(itemList);
 
     res.json({ deck: itemList.slice(0, 2) });
-  } catch(e) {
-    console.log(e);
+  } catch (e) {
+    console.error(e);
     res.status(500).json({ error: 'erro ao montar deck cpu' });
   }
 });
 
 app.listen(3000, () => {
-  console.log('rodando na porta 3000');
+  console.error('rodando na porta 3000');
 });
