@@ -1,0 +1,42 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "globals": {
+    "GAME_CONSTANTS": "readonly",
+    "state": "writable",
+    "getHouseColor": "readonly",
+    "getHouseEmoji": "readonly",
+    "hpColor": "readonly",
+    "log": "readonly",
+    "setStatus": "readonly",
+    "showScreen": "readonly",
+    "renderCard": "readonly",
+    "renderDeckBadges": "readonly",
+    "renderSpells": "readonly",
+    "loadGame": "readonly",
+    "renderPack": "readonly",
+    "toggleDraftCard": "readonly",
+    "rerollPack": "readonly",
+    "confirmDraft": "readonly",
+    "startBattle": "readonly",
+    "getActiveIdx": "readonly",
+    "renderBattleState": "readonly",
+    "castSpell": "readonly",
+    "nextRound": "readonly",
+    "endGame": "readonly",
+    "restartGame": "readonly",
+    "shuffleArray": "readonly"
+  },
+  "rules": {
+    "no-unused-vars": "off",
+    "no-use-before-define": ["error", { "functions": false }],
+    "max-len": "off",
+    "no-unused-expressions": "off",
+    "no-param-reassign": "off",
+    "no-nested-ternary": "off",
+    "func-names": "off",
+    "no-plusplus": "off"
+  }
+}

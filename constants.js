@@ -20,7 +20,7 @@ const CONSTANTS = {
     Gryffindor: 90,
     Slytherin: 85,
     Hufflepuff: 75,
-    Ravenclaw: 80
+    Ravenclaw: 80,
   },
 
   // Species Magic Modifiers
@@ -32,7 +32,7 @@ const CONSTANTS = {
     ghost: 60,
     werewolf: 91,
     vampire: 87,
-    centaur: 78
+    centaur: 78,
   },
 
   // Ancestry Defense Modifiers
@@ -41,7 +41,7 @@ const CONSTANTS = {
     'half-blood': 75,
     'muggle-born': 70,
     muggle: 40,
-    squib: 35
+    squib: 35,
   },
 
   // Spell Damage Modifiers
@@ -54,8 +54,8 @@ const CONSTANTS = {
     Spell: 50,
     Transfiguration: 40,
     'Counter-spell': 35,
-    'Healing spell': -40
-  }
+    'Healing spell': -40,
+  },
 };
 
 module.exports = CONSTANTS;
